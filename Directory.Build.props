@@ -12,7 +12,16 @@
 
     <Company>LTR Data</Company>
     <Authors>Kenneth Bell;LordMike;Olof Lagerkvist</Authors>
-    <OutputPath>..\$(Configuration)</OutputPath>
+
+    <!-- Nexaflow integration (smile-forge fork): these projects are consumed from source as out-of-solution
+         ProjectReferences. When VS resolves the transitive refs it evaluates them with $(Configuration)
+         unset, which collapses the shared OutputPath below (..\$(Configuration)) to Library\net10.0 and
+         breaks the reference copy. Default an unset config to Release here (before the SDK's later Debug
+         default) so the projects compile optimized AND land in Library\Release; the ValueOrDefault on
+         OutputPath additionally guarantees the folder never collapses even if $(Configuration) somehow
+         stays empty. An explicit -c Debug/-c Release (e.g. DiscUtils.slnx) still wins and is unchanged. -->
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <OutputPath>..\$([MSBuild]::ValueOrDefault('$(Configuration)', 'Release'))</OutputPath>
     <FileVersion>1.0.86</FileVersion>
 
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
