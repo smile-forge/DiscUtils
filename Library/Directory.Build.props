@@ -1,10 +1,23 @@
 <Project>
   <Import Project="..\Directory.Build.props" Condition="Exists('..\Directory.Build.props')"/>
   
+  <!-- Nexaflow integration (smile-forge fork): these projects are consumed from source as out-of-solution
+       ProjectReferences. The consumer forces Configuration=Release / Platform=AnyCPU on the entry-point
+       refs; keep those globals flowing to the transitive format libs instead of stripping config/platform
+       at each internal hop, so every referenced DiscUtils assembly is the optimized Release build. Only
+       affects out-of-solution references — DiscUtils.slnx's own in-solution builds use the solution's
+       config mapping and are unchanged. -->
+  <PropertyGroup>
+    <ShouldUnsetParentConfigurationAndPlatform>false</ShouldUnsetParentConfigurationAndPlatform>
+  </PropertyGroup>
+
   <!-- Package related stuff -->
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net46;net48;net8.0;net9.0;net10.0</TargetFrameworks>
-	<GeneratePackageOnBuild Condition="'$(Configuration)' == 'Release'">true</GeneratePackageOnBuild>
+	<!-- Nexaflow forces a Release build to link optimized binaries; this fork is consumed as source and
+	     never packed, so don't pack-on-build (would fire NuGet pack every consumer build, and
+	     PackageOutputPath=$(LocalNuGetPath) is undefined). -->
+	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	<PackageId>LTRData.$(MSBuildProjectName)</PackageId>
     <PackageOutputPath>$(LocalNuGetPath)</PackageOutputPath>
     <PackageVersion>$(FileVersion)</PackageVersion>
