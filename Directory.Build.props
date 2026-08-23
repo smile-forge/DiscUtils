@@ -22,7 +22,7 @@
          stays empty. An explicit -c Debug/-c Release (e.g. DiscUtils.slnx) still wins and is unchanged. -->
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <OutputPath>..\$([MSBuild]::ValueOrDefault('$(Configuration)', 'Release'))</OutputPath>
-    <FileVersion>1.0.86</FileVersion>
+    <FileVersion>1.0.88</FileVersion>
 
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
 
