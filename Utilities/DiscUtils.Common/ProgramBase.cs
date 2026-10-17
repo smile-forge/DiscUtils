@@ -28,6 +28,7 @@ using System.Reflection;
 using DiscUtils.Streams;
 using System.Linq;
 using LTRData.Extensions.Buffers;
+using LTRData.Extensions.Formatting;
 
 namespace DiscUtils.Common;
 
@@ -243,12 +244,16 @@ public abstract class ProgramBase
         {
             Console.ForegroundColor = ConsoleColor.Red;
 
-            while (ex is not null)
+#if DEBUG
+            Console.Error.WriteLine(ex.ToString());
+#else
+            foreach (var e in ex.Enumerate())
             {
-                Environment.ExitCode = ex.HResult;
-                Console.Error.WriteLine(ex.Message);
-                ex = ex.InnerException;
+                Environment.ExitCode = e.HResult;
+
+                Console.Error.WriteLine(e.Message);
             }
+#endif
 
             Console.ResetColor();
         }

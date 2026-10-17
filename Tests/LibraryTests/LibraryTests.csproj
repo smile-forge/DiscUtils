@@ -23,10 +23,15 @@
 
   <ItemGroup>
 	<EmbeddedResource Include="ExFat\Environment\exFAT.vhdx.gz" />
+	<EmbeddedResource Include="SquashFs\extended-inodes.sqsh" />
+	<EmbeddedResource Include="SquashFs\huge-sparse.sqsh" />
+	<EmbeddedResource Include="SquashFs\big-root.sqsh" />
+	<EmbeddedResource Include="SquashFs\xattr-symlink.sqsh" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Utilities\DiscUtils.Diagnostics\DiscUtils.Diagnostics.csproj" />
+    <ProjectReference Include="..\..\Utilities\ISOCreate\ISOCreate.csproj" />
     <ProjectReference Include="..\..\Library\DiscUtils.Core\DiscUtils.Core.csproj" />
     <ProjectReference Include="..\..\Library\DiscUtils\DiscUtils.csproj" />
   </ItemGroup>
