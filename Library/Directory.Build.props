@@ -6,7 +6,7 @@
     <!-- Shared opt-in keeps new providers automatic at build time; projects without
          discovery attributes (including meta-packages) generate no registration code. -->
     <DiscUtilsGenerateRegistration>true</DiscUtilsGenerateRegistration>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net46;net48;net8.0;net9.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>net10.0</TargetFrameworks>
 	<!-- Nexaflow forces a Release build to link optimized binaries; this fork is consumed as source and
 	     never packed, so don't pack-on-build (would fire NuGet pack every consumer build, and
 	     PackageOutputPath=$(LocalNuGetPath) is undefined). -->
